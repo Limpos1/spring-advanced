@@ -37,10 +37,10 @@ public class ManagerService {
                 .orElseThrow(() -> new InvalidRequestException("Todo not found"));
 
 
-        //todo.getUser().getId()는 if문에 true나 false가 들어가기 전에 NPE가 발생하기 때문에 조건문이 실행되지 않고 NPE가 던져진다.
-        // nullSafeEquals() 함수가 실행되지 않고 NPE가 발생한다는 뜻이다.
-        // toto.getUser()는 정상적으로 nullSafeEquals 메서드가 실행되어 Null값을 검사하고 if문에 true 또는 false가 전달된다.
-        if (!ObjectUtils.nullSafeEquals(user.getId(), todo.getUser())) {
+        if(todo.getUser()==null)
+            throw new InvalidRequestException("담당자를 등록하려고 하는 유저가 일정을 만든 유저가 유효하지 않습니다.");
+
+        if (!ObjectUtils.nullSafeEquals(user.getId(), todo.getUser().getId())) {
             throw new InvalidRequestException("담당자를 등록하려고 하는 유저가 일정을 만든 유저가 유효하지 않습니다.");
         }
 
