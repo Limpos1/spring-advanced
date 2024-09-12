@@ -16,9 +16,13 @@ class CommentAdminServiceTest {
     @Mock
     private CommentRepository commentRepository;
 
+
+    // Mocking된 commentRepository를 commentAdminService에 주입한다.
     @InjectMocks
     private CommentAdminService commentAdminService;
 
+
+    //테스트 메서드를 실행할때마다 Mock을 초기화한다.
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -33,6 +37,7 @@ class CommentAdminServiceTest {
         commentAdminService.deleteComment(commentId);
 
         // then
+        // deleteById가 commentId와 함께 한번 호출되었는지 확인한다.
         verify(commentRepository, times(1)).deleteById(commentId);
     }
 
